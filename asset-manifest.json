@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mewnite/training-app/static/css/main.e6c13ad2.css",
-    "main.js": "/mewnite/training-app/static/js/main.d3669358.js",
-    "static/js/453.95cdbd14.chunk.js": "/mewnite/training-app/static/js/453.95cdbd14.chunk.js",
-    "index.html": "/mewnite/training-app/index.html",
-    "main.e6c13ad2.css.map": "/mewnite/training-app/static/css/main.e6c13ad2.css.map",
-    "main.d3669358.js.map": "/mewnite/training-app/static/js/main.d3669358.js.map",
-    "453.95cdbd14.chunk.js.map": "/mewnite/training-app/static/js/453.95cdbd14.chunk.js.map"
+    "main.css": "/training-app/static/css/main.e6c13ad2.css",
+    "main.js": "/training-app/static/js/main.6761cee7.js",
+    "static/js/453.95cdbd14.chunk.js": "/training-app/static/js/453.95cdbd14.chunk.js",
+    "index.html": "/training-app/index.html",
+    "main.e6c13ad2.css.map": "/training-app/static/css/main.e6c13ad2.css.map",
+    "main.6761cee7.js.map": "/training-app/static/js/main.6761cee7.js.map",
+    "453.95cdbd14.chunk.js.map": "/training-app/static/js/453.95cdbd14.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.d3669358.js"
+    "static/js/main.6761cee7.js"
   ]
 }
