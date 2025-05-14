@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const App = () => {
   const [exercises, setExercises] = useState({});
   const [exerciseName, setExerciseName] = useState("");
   const [weight, setWeight] = useState("");
   const [rir, setRir] = useState("");
+  const [expanded, setExpanded] = useState({});
 
   // Load data from localStorage
   useEffect(() => {
@@ -20,7 +22,6 @@ const App = () => {
     localStorage.setItem("exercises", JSON.stringify(exercises));
   }, [exercises]);
 
-  // Handle adding a new exercise entry
   const handleAddExercise = () => {
     if (!exerciseName || !weight || !rir) return;
 
@@ -37,23 +38,30 @@ const App = () => {
     setRir("");
   };
 
+  const toggleExpand = (exercise) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [exercise]: !prev[exercise],
+    }));
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold text-center mb-4">Training Tracker</h1>
-      <div className="max-w-md mx-auto bg-white p-4 rounded-lg shadow-md">
+    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-700 text-white p-6">
+      <h1 className="text-4xl font-bold text-center mb-8">Training Tracker</h1>
+      <div className="max-w-lg mx-auto bg-white text-gray-800 p-6 rounded-lg shadow-lg">
         <input
           type="text"
           placeholder="Exercise Name"
           value={exerciseName}
           onChange={(e) => setExerciseName(e.target.value)}
-          className="block w-full p-2 mb-2 border rounded"
+          className="block w-full p-2 mb-3 border rounded"
         />
         <input
           type="number"
           placeholder="Weight (kg)"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
-          className="block w-full p-2 mb-2 border rounded"
+          className="block w-full p-2 mb-3 border rounded"
         />
         <input
           type="number"
@@ -64,28 +72,44 @@ const App = () => {
         />
         <button
           onClick={handleAddExercise}
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition"
         >
           Add Exercise
         </button>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-10 space-y-6">
         {Object.keys(exercises).map((exercise) => (
-          <div key={exercise} className="mb-6">
-            <h2 className="text-xl font-bold mb-2">{exercise}</h2>
-            <LineChart
-              width={500}
-              height={300}
-              data={exercises[exercise]}
-              className="mx-auto"
-            >
-              <CartesianGrid stroke="#ccc" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="weight" stroke="#8884d8" />
-            </LineChart>
+          <div key={exercise} className="bg-white p-4 rounded-lg shadow-lg">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold">{exercise}</h2>
+              <button
+                onClick={() => toggleExpand(exercise)}
+                className="text-blue-600 hover:text-blue-800 transition"
+              >
+                {expanded[exercise] ? (
+                  <ChevronUp size={20} />
+                ) : (
+                  <ChevronDown size={20} />
+                )}
+              </button>
+            </div>
+            {expanded[exercise] && (
+              <div className="mt-4">
+                <LineChart
+                  width={500}
+                  height={300}
+                  data={exercises[exercise]}
+                  className="mx-auto"
+                >
+                  <CartesianGrid stroke="#ccc" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="weight" stroke="#8884d8" />
+                </LineChart>
+              </div>
+            )}
           </div>
         ))}
       </div>
